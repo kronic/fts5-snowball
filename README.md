@@ -1,6 +1,6 @@
 # Snowball tokenizer for SQLite FTS5
 
-This is a simple extension for use with FTS5 within SQLite. It allows FTS5 to use Martin Porter's Snowball stemmers (see http://snowballstem.org/), which are available in several languages.
+This is a simple extension for use with FTS5 within SQLite. It allows FTS5 to use Martin Porter's Snowball stemmers (libstemmer), which are available in several languages. Check http://snowballstem.org/ for more information about them.
 
 # Usage
 
@@ -16,8 +16,13 @@ The main difference is that you can pass the language as the second parameter:
 ```
 CREATE VIRTUAL TABLE books USING fts5(author, title, description, tokenize = 'snowball spanish');
 ```
- 
-After the language, you can pass the other parameters you would pass to the stock porter tokenizer:
+
+You can even pass several languages, and they will be tried in order until one of them works:
+```
+CREATE VIRTUAL TABLE books USING fts5(author, title, description, tokenize = 'snowball spanish english');
+```
+
+After the language(s), you can pass the other parameters you would pass to the stock porter tokenizer:
 ```
 CREATE VIRTUAL TABLE mail USING fts5(sender, title, body, tokenize = "snowball english unicode61 tokenchars '-_'");
 ```
